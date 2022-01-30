@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app"
 import "firebase/compat/auth"
 import "firebase/compat/firestore"
+import "firebase/compat/storage"
 
 export class Firebase {
 
@@ -9,7 +10,7 @@ export class Firebase {
             apiKey: "AIzaSyArLtO3jGnp9RRj0o1V5zPirceTpztcWo8",
             authDomain: "whatsapp-clone-94da3.firebaseapp.com",
             projectId: "whatsapp-clone-94da3",
-            storageBucket: "whatsapp-clone-94da3.appspot.com",
+            storageBucket: "gs://whatsapp-clone-94da3.appspot.com",
             messagingSenderId: "300016187853",
             appId: "1:300016187853:web:a2602fb6e78fae9d30ac84"
         };
