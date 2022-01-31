@@ -302,7 +302,9 @@ export class WhatsAppController {
                 let file = this.el.inputProfilePhoto.files[0];
                 Upload.send(file, this._user.email).then(snapshot => {
                    this._user.photo = snapshot;
-                   this._user.save();
+                   this._user.save().then(() => {
+                       this.el.btnClosePanelEditProfile.click();
+                   });
                 });
             }
         });
