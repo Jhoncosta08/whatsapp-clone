@@ -4,9 +4,9 @@ Project made with JavaScipt using webpack and firebase, project tries to simulat
 however instead of being contacted by phone you must use login with google to use and
 to add contact you add through the user's email.
 
-<h2>Requirements guide:<h2>
+<h2>Requirements guide:</h2>
 
--[x] Node-js is required to run this project
+- [x] Node-js is required to run this project
 
 You can access more information about the node at:
 
