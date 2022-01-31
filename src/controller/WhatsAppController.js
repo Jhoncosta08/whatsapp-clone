@@ -85,10 +85,13 @@ export class WhatsAppController {
                         <div class="_25Ooe">
                             <span dir="auto" title="${contact.name}" class="_1wjpf">${contact.name}</span>
                         </div>
+                        <!--
                         <div class="_3Bxar">
                             <span class="_3T2VG">${Format.timeStampToTime(contact.lastMessageTime)}</span>
                         </div>
+                        -->
                     </div>
+                    <!--
                     <div class="_1AwDx">
                         <div class="_itDl">
                             <span title="digitando…" class="vdXUe _1wjpf typing" style="display:none">digitando…</span>
@@ -112,6 +115,7 @@ export class WhatsAppController {
                             </span>
                         </div>
                     </div>
+                    -->
                </div>                                      
         `;
                if(contact.photo) {
@@ -134,7 +138,6 @@ export class WhatsAppController {
         }
         this._contactActive = contact;
         this.el.activeName.innerHTML = contact.name;
-        this.el.activeStatus.innerHTML = contact.status;
         if(contact.photo) {
             let img = this.el.activePhoto;
             img.src = contact.photo;
