@@ -15,14 +15,48 @@ export class WhatsAppController {
 
 
     constructor() {
-        console.log('WhatsappController OK');
-
+        this._active = true;
         this._firebase = new Firebase();
         this.initAuth();
         this.elementsPrototype();
         this.loadElements();
         this.initEvents();
+        this.checkNotifications();
     };
+
+    checkNotifications() {
+        if(typeof Notification === 'function') {
+            if(Notification.permission !== 'granted') {
+                this.el.alertNotificationPermission.show();
+            }else {
+                this.el.alertNotificationPermission.hide();
+            }
+            this.el.alertNotificationPermission.on('click', e => {
+               Notification.requestPermission(permission => {
+                   if(permission === 'granted') {
+                       this.el.alertNotificationPermission.hide();
+                       console.info('notificações permitidas');
+                   }
+               });
+            });
+        }
+    }
+
+    notification(data) {
+        if(!this._active && Notification.permission === 'granted') {
+            let n = new Notification(this._contactActive.name, {
+                icon: this._contactActive.photo,
+                body: data.content
+            });
+            console.log('N: ', n);
+            let sound = new Audio('./audio/alert.mp3');
+            sound.currentTime = 0;
+            sound.play();
+            setTimeout(() => {
+                if (n) n.close();
+            }, 3000);
+        }
+    }
 
     initAuth() {
         this._firebase.initAuth().then(response => {
@@ -148,6 +182,7 @@ export class WhatsAppController {
             display: 'flex'
         });
         this.el.panelMessagesContainer.innerHTML = '';
+        this._messagesReceived = [];
         Message.getRef(this._contactActive.chatId).orderBy('timeStamp').onSnapshot(docs => {
             let scrollTop = this.el.panelMessagesContainer.scrollTop;
             let scrollTopMax = (this.el.panelMessagesContainer.scrollHeight - this.el.panelMessagesContainer.offsetHeight);
@@ -158,6 +193,12 @@ export class WhatsAppController {
                let message = new Message();
                message.fromJSON(data);
                let me = (data.from === this._user.email);
+
+               if(!me && this._messagesReceived.filter(id => {return (id === data.id)}).length === 0) {
+                   this.notification(data);
+                   this._messagesReceived.push(data.id);
+               }
+
                let view = message.getViewElement(me);
                if(!this.el.panelMessagesContainer.querySelector(`#_` + data.id)){
                    if(!me) {
@@ -262,6 +303,14 @@ export class WhatsAppController {
 
 
     initEvents(){
+
+        window.addEventListener('focus', e => {
+            this._active = true;
+        });
+
+        window.addEventListener('blur', e => {
+            this._active = false;
+        });
 
         this.el.inputSearchContacts.on('keyup', e => {
             if(this.el.inputSearchContacts.value.length > 0) {
