@@ -6,7 +6,7 @@ to add contact you add through the user's email.
 
 <h2>Requirements guide:<h2>
 
-- [x] Node-js is required to run this project
+-[x] Node-js is required to run this project
 
 You can access more information about the node at:
 
