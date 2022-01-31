@@ -23,7 +23,7 @@ You can acess more information about the Git at:
 - [x] with Git and Node installed open the git command terminal
 and run the code:
 
-```git clone [https://github.com/Jhoncosta08/whatsapp-clone](https://github.com/Jhoncosta08/whatsapp-clone)```
+```git clone https://github.com/Jhoncosta08/whatsapp-clone```
 
 this command will clone the project to your computer.
 
